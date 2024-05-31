@@ -1,0 +1,158 @@
+// Carpark
+//
+// This program was written by [Alina Cui] (z5416104)
+// on [10/07/23]
+//
+// TODO: Description of program
+
+#include <stdio.h>
+#include <math.h>
+
+// Provided constants
+#define CARPARK_ROWS 8
+#define CARPARK_COLUMNS 6
+
+#define NORMAL_PARKING_RATE 10
+
+#define EMPTY -1
+
+// Your constants here 
+
+// Provided enums
+enum space_type {
+    NORMAL,
+    PREMIUM,
+    CARWASH_BAY,
+    ELECTRIC_CHARGING_STATION
+};
+
+
+// Provided structs
+struct car_space {
+    enum space_type type;
+    int parking_rate;
+    int licence_plate;
+    int occupied_since;
+};
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////  YOUR FUNCTION PROTOTYPE  /////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// TODO: Put your function prototypes here
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////// PROVIDED FUNCTION PROTOTYPE  ////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void initialise_carpark(struct car_space carpark[CARPARK_ROWS][CARPARK_COLUMNS]);
+void print_carpark(struct car_space carpark[CARPARK_ROWS][CARPARK_COLUMNS]);
+void print_car_space(struct car_space space);
+
+
+int main(void) {
+    // Set up carpark. `carpark` is a 2D array of `struct car_space`s. 
+    // It is `CARPARK_ROWS` x `CARPARK_COLUMNS` in size (which is 8 x 6 for this
+    // assignment).
+    struct car_space carpark[CARPARK_ROWS][CARPARK_COLUMNS];
+
+    // This will initialise all spaces in the carpark as NORMAL spaces which are 
+    // all EMPTY.
+    initialise_carpark(carpark);
+
+    // TODO: Start writing code here!
+
+    // TODO: Stage 1.1 - Carpark setup. Scan in which row of the carpark to be 
+    // reserved for premium parking. The carpark should be printed once premium
+    // parking is reserved.
+    printf("Welcome to CS Carpark!\n\n");
+    printf("Which row of the carpark would you like to reserve for premium parking? ");
+    
+
+    // TODO: Stage 1.2 - Scan in the initial cars.
+
+    
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////  YOUR FUNCTIONS //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// TODO: Put your functions here
+
+///////////////////////////////////////////////////////////////////////////////
+/////////////////////////// PROVIDED FUNCTIONS  ///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+/**
+ * Initialises carpark spaces as NORMAL spaces with NORMAL_PARKING_RATE that are
+ * initially EMPTY.
+ * 
+ * Parameters:
+ *     carpark - The carpark to initialise.
+ * Returns:
+ *     Nothing.
+ */
+void initialise_carpark(struct car_space carpark[CARPARK_ROWS][CARPARK_COLUMNS]) {
+    for (int row = 0; row < CARPARK_ROWS; row++) {
+        for (int col = 0; col < CARPARK_COLUMNS; col++) {
+            carpark[row][col].type = NORMAL;
+            carpark[row][col].parking_rate = NORMAL_PARKING_RATE;
+            carpark[row][col].licence_plate = EMPTY;
+            carpark[row][col].occupied_since = EMPTY;
+        }
+    }
+}
+
+/**
+ * Prints all carpark spaces, displaying their type and the licence plate of 
+ * any cars parked in the carpark.
+ * 
+ * Parameters:
+ *     carpark   - The carpark to be printed
+ * Returns:
+ *     Nothing.
+ */
+void print_carpark(struct car_space carpark[CARPARK_ROWS][CARPARK_COLUMNS]) {
+    printf("-------------------------------------------------------------------\n");
+    for (int row = 0; row < CARPARK_ROWS; row++) {
+        for (int col = 0; col < CARPARK_COLUMNS; col++) {
+            print_car_space(carpark[row][col]);
+        }
+        printf("|\n");
+        printf("-------------------------------------------------------------------\n");
+    }
+    printf("\n");
+}
+
+/**
+ * Prints the type of a particular car space, as well as the licence plate of 
+ * the car located at that car space.
+ * 
+ * Parameters:
+ *     car_space         - The car space to print.
+ *
+ * Returns:
+ *     Nothing.
+ */
+void print_car_space(struct car_space car_space) {
+    printf("|");
+    if (car_space.type == NORMAL) {
+        printf(" N :");
+    } else if (car_space.type  == PREMIUM) {
+        printf(" P :");
+    } else if (car_space.type  == CARWASH_BAY) {
+        printf(" W :");
+    } else if (car_space.type  == ELECTRIC_CHARGING_STATION) {
+        printf(" CHARGER  ");
+    }
+    if (car_space.type != ELECTRIC_CHARGING_STATION) {
+        if (car_space.licence_plate == EMPTY) {
+            printf("      ");
+        } else {
+            printf(" %04d ", car_space.licence_plate);
+        }
+    }
+    
+}
